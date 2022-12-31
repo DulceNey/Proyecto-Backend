@@ -11,7 +11,7 @@ const usersSchema = new Schema ({
         type: Number,
         required: true,
     },
-    Ocuppation: {
+    Occupation: {
         type: String,
         required: true,
     },
