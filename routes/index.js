@@ -8,8 +8,8 @@ router.get('/', function(req, res, next) {
 
 //Example of a succesfull connection with and external API
 //GET
-const { kittyStatus } = require("../controllers/Api");
-router.get("/cat", kittyStatus)
+const { byRegion } = require("../controllers/Api");
+router.get("/region", byRegion)
 
 module.exports = router;
 

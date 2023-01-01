@@ -1,12 +1,12 @@
 const axios = require ("axios")
 
-const kittyStatus = async () => {
+const byRegion = async (req, res) => {
     try {
-        const {imageOfCat} = await axios.get("https://http.cat/[status_code]")
-        res.json({imageOfCat})
+        const region = await axios.get("https://pokeapi.co/api/v2/pokedex/2")
+        res.json(region.data)
     } catch (error) {
-        console.log()
+        console.log("we are sorry, but something went wrong")
     }
 }
 
-module.exports = {kittyStatus}
+module.exports = {byRegion}
