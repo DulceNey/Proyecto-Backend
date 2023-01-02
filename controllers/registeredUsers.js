@@ -1,15 +1,15 @@
 const {usersData} = require("../models/UsersData");
-const {check, validationResult} = require("express-validator")
+const {validationResult} = require("express-validator")
 
 //GET 
 const registeredUsers = async (req, res) => {
     try {
         const protect = validationResult(req)
-        if (protect.isEmpty) {
+        if (protect.isEmpty()) {
             const registered = await usersData.find(req.body);
             res.json({registered})
         } else {
-            res.status(501).json({registered})
+            res.status(501).json({protect})
         }
     } catch (error) {
         res.status(501).json({error})
@@ -20,14 +20,13 @@ const registeredUsers = async (req, res) => {
 const newUser = async (req, res) => {
     try {
         const protect = validationResult(req)
-        if (protect.isEmpty) {
+        if (protect.isEmpty()) {
             const users = new usersData (req.body);
             await users.save();
-            res.status(201).json({registered})
+            res.json({registered})
         } else {
-            res.status(501).json(protect)
+            res.status(501).json({protect})
         }
-        
     } catch (error) {
         res.status(501).json({error})
     }
@@ -37,11 +36,11 @@ const newUser = async (req, res) => {
 const updateUser = async (req, res) => {
     try {
         const protect = validationResult(req)
-        if (protect.isEmpty) {
+        if (protect.isEmpty()) {
             await usersData.findByIdAndUpdate(req.params.id, req.body);
             res.json({registered})
         } else {
-            res.status(501).json(protect)
+            res.status(501).json({protect})
         }
     } catch (error) {
         res.status(501).json({error})
@@ -53,17 +52,15 @@ const updateUser = async (req, res) => {
 const deleteUser =  async (req, res) => {
     try {
         const protect = validationResult(req)
-        if (protect.isEmpty) {
+        if (protect.isEmpty()) {
             await usersData.findByIdAndDelete(req.params.id);
-            res.json(registered)
+            res.json({registered})
         } else {
-            res.status(501).json(protect)
+            res.status(501).json({protect})
         }
     } catch (error) {
         res.status(501).json({error})
     }
-    
-
 }
 
 module.exports = {registeredUsers, newUser, updateUser, deleteUser}
